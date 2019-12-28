@@ -59,10 +59,10 @@ func (value *Firestorevalue) get() interface{} {
 func getQueryParser() *participle.Parser {
 	queryLexer := lexer.Must(lexer.Regexp(`(\s+)` +
 		`|(?P<DateTime>` + rfc3339pattern + `)` +
+		`|(?P<Operator><=|>=|<|>|==|in|array-contains|array-contains-any)` +
 		`|(?P<SimpleFieldPath>[a-zA-Z_][a-zA-Z0-9_]*)` +
 		`|(?P<Number>[-+]?\d*\.?\d+)` +
 		`|(?P<String>('[^']*')|("((\\")|[^"])*"))` +
-		`|(?P<Operator><=|>=|<|>|==)` +
 		`|(?P<Dot>\.)`,
 	))
 	parser := participle.MustBuild(

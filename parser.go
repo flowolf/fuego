@@ -62,6 +62,8 @@ func getQueryParser() *participle.Parser {
 		`|(?P<Operator><=|>=|<|>|==|in|array-contains|array-contains-any)` +
 		`|(?P<SimpleFieldPath>[a-zA-Z_][a-zA-Z0-9_]*)` +
 		`|(?P<Number>[-+]?\d*\.?\d+)` +
+		`|(?P<OpenList>\[)` +
+		`|(?P<CloseList>\])` +
 		`|(?P<String>('[^']*')|("((\\")|[^"])*"))` +
 		`|(?P<Dot>\.)`,
 	))

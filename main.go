@@ -41,6 +41,10 @@ func main() {
 			Name:  "timestamp, ts",
 			Usage: "treat strings values that match rfc3339 as timestamps",
 		},
+		cli.StringFlag{
+			Name: "name, n",
+			Usage: "set a specific name for a document",
+		},
 	}
 
 	app.Commands = []cli.Command{

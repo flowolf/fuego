@@ -24,6 +24,7 @@ setUp() {
     TEST_COLLECTION=tests-`uuidgen`
 		TEST_COLLECTION_2=tests-`uuidgen`
     echo "Testing with collection ${TEST_COLLECTION}"
+    echo "Testing with collection ${TEST_COLLECTION_2}"
 }
 
 oneTimeTearDown() {
@@ -50,6 +51,25 @@ testAddSetReadDeleteDocument() {
 		# And deleting...
 		../fuego delete ${TEST_COLLECTION} ${id}
 		assertFalse "Should not have read deleted value" "../fuego get ${TEST_COLLECTION} ${id}"
+}
+
+
+testAddCustomNamedDocument() {
+    # Adding...
+    for c in `seq 1 10`; do 
+      expectedValue=`uuidgen`
+      custom_name="custom_doc_name-`uuidgen`"
+      id=$(../fuego add ${TEST_COLLECTION} --name ${custom_name} "{\"level1\": \"${expectedValue}\"}") || fail "Failed to add document"
+      result=$(../fuego get ${TEST_COLLECTION} ${custom_name} | jq ".level1")
+      assertEquals "Failed to read added value" "\"${expectedValue}\"" "${result}"
+    done
+
+    expectedValue=`uuidgen`
+    custom_name="myCustomDocumentName"
+    id=$(../fuego add ${TEST_COLLECTION} --name ${custom_name} "{\"level1\": \"${expectedValue}\"}") || fail "Failed to add document"
+    result=$(../fuego get ${TEST_COLLECTION} ${custom_name} | jq ".level1")
+    assertEquals "Failed to read added value" "\"${expectedValue}\"" "${result}"
+
 }
 
 testUpdatingDocument(){

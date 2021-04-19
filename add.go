@@ -6,9 +6,6 @@ import (
 	"fmt"
 	"github.com/urfave/cli"
 )
-type FakeDoc struct {
-    ID string
-}
 
 func addData(
 	client *firestore.Client,
@@ -25,7 +22,7 @@ func addData(
 	if timestampify {
 		timestampifyMap(object)
 	}
-	fmt.Sprintf(name)
+
 	if name != "" {
 		_, err := client.
 		Collection(collection).Doc(name).
@@ -43,8 +40,6 @@ func addData(
 		}
 		return doc.ID, nil
 	}
-
-	// return doc.ID, nil
 }
 
 func addCommandAction(c *cli.Context) error {
